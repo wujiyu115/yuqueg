@@ -1,4 +1,4 @@
-package yuque
+package yuqueg
 
 //CreateGroup struct for create group
 type CreateGroup struct {

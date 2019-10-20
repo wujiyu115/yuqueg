@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/wujiyu115/yuque_go"
+	"github.com/wujiyu115/yuqueg"
 )
 
 func main() {

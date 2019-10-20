@@ -1,4 +1,4 @@
-module github.com/wujiyu115/yuque_go
+module github.com/wujiyu115/yuqueg
 
 // replace golang.org/x/sys => github.com/golang/sys v0.0.0-20191018095205-727590c5006e
 
