@@ -2,11 +2,11 @@ package yuqueg
 
 // Service encapsulate authenticated token
 type Service struct {
-	client *Client
-	user   *UserService
-	doc    *Doc
-	repo   *Repo
-	group  *Group
+	Client *Client
+	User   *UserService
+	Doc    *Doc
+	Repo   *Repo
+	Group  *Group
 }
 
 // NewService create Client for external use
@@ -17,9 +17,9 @@ func NewService(token string) *Service {
 }
 
 func (s *Service) init(token string) {
-	s.client = NewClient(token)
-	s.user = NewUser(s.client)
-	s.doc = NewDoc(s.client)
-	s.repo = NewRepo(s.client)
-	s.group = NewGroup(s.client)
+	s.Client = NewClient(token)
+	s.User = NewUser(s.Client)
+	s.Doc = NewDoc(s.Client)
+	s.Repo = NewRepo(s.Client)
+	s.Group = NewGroup(s.Client)
 }
