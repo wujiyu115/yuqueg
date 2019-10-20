@@ -31,7 +31,7 @@ func NewLogger() *zap.SugaredLogger {
     }
 
     // log level
-    atom := zap.NewAtomicLevelAt(zap.DebugLevel)
+    atom := zap.NewAtomicLevelAt(zap.InfoLevel)
 
     config := zap.Config{
         Level:            atom,
