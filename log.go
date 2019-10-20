@@ -6,15 +6,15 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-var l *zap.SugaredLogger
+var L *zap.SugaredLogger
 
 func init() {
-	l = NewLogger()
+	L = NewLogger()
 }
 
 func NewLogger() *zap.SugaredLogger {
-    if l != nil {
-        return l
+    if L != nil {
+        return L
     }
     encoderConfig := zapcore.EncoderConfig{
         TimeKey:        "time",

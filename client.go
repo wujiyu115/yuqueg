@@ -69,7 +69,7 @@ func (c Client) Request(api string, options *RequestOption) ([]byte, error) {
 		fmt.Println(err)
 		return nil, err
 	}
-	l.Debug(string(requestDump))
+	L.Debug(string(requestDump))
 
 	client := &http.Client{
 		Timeout: timeout,
@@ -98,7 +98,7 @@ func (c Client) RequestObj(api string, container interface{}, options *RequestOp
 	if err != nil {
 		return nil, err
 	}
-	l.Debug(string(body))
+	L.Debug(string(body))
 	err = json.Unmarshal(body, container)
 	if err != nil {
 		return nil, err
