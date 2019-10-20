@@ -1,4 +1,4 @@
-package main
+package yuque
 
 // Service encapsulate authenticated token
 type Service struct {

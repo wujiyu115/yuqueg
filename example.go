@@ -2,10 +2,11 @@ package main
 
 import (
 	"encoding/json"
+	"github.com/wujiyu115/yuque_go"
 )
 
 func main() {
-	yu := NewService("xxx")
+	yu := yuque.NewService("xxx")
 	d, err := yu.user.Get("")
 
 	// d, err := yu.group.List("u22579")
