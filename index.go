@@ -12,11 +12,11 @@ type Service struct {
 // NewService create Client for external use
 func NewService(token string) *Service {
 	s := new(Service)
-	s.init(token)
+	s.Init(token)
 	return s
 }
 
-func (s *Service) init(token string) {
+func (s *Service) Init(token string) {
 	s.Client = NewClient(token)
 	s.User = NewUser(s.Client)
 	s.Doc = NewDoc(s.Client)
