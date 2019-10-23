@@ -125,49 +125,52 @@ type DocDetail struct {
 	} `json:"data"`
 }
 
+//DocBookDetail of doc
+type DocBookDetail struct {
+	ID                int         `json:"id"`
+	Slug              string      `json:"slug"`
+	Title             string      `json:"title"`
+	Description       string      `json:"description"`
+	UserID            int         `json:"user_id"`
+	BookID            int         `json:"book_id"`
+	Format            string      `json:"format"`
+	Public            int         `json:"public"`
+	Status            int         `json:"status"`
+	LikesCount        int         `json:"likes_count"`
+	CommentsCount     int         `json:"comments_count"`
+	ContentUpdatedAt  time.Time   `json:"content_updated_at"`
+	CreatedAt         time.Time   `json:"created_at"`
+	UpdatedAt         time.Time   `json:"updated_at"`
+	PublishedAt       time.Time   `json:"published_at"`
+	FirstPublishedAt  time.Time   `json:"first_published_at"`
+	DraftVersion      int         `json:"draft_version"`
+	LastEditorID      int         `json:"last_editor_id"`
+	WordCount         int         `json:"word_count"`
+	Cover             interface{} `json:"cover"`
+	CustomDescription interface{} `json:"custom_description"`
+	LastEditor        struct {
+		ID              int       `json:"id"`
+		Type            string    `json:"type"`
+		Login           string    `json:"login"`
+		Name            string    `json:"name"`
+		Description     string    `json:"description"`
+		AvatarURL       string    `json:"avatar_url"`
+		LargeAvatarURL  string    `json:"large_avatar_url"`
+		MediumAvatarURL string    `json:"medium_avatar_url"`
+		SmallAvatarURL  string    `json:"small_avatar_url"`
+		FollowersCount  int       `json:"followers_count"`
+		FollowingCount  int       `json:"following_count"`
+		CreatedAt       time.Time `json:"created_at"`
+		UpdatedAt       time.Time `json:"updated_at"`
+		Serializer      string    `json:"_serializer"`
+	} `json:"last_editor"`
+	Book       interface{} `json:"book"`
+	Serializer string      `json:"_serializer"`
+}
+
 // BookDetail  JSON structure for a list of articles in the library
 type BookDetail struct {
-	Data []struct {
-		ID                int         `json:"id"`
-		Slug              string      `json:"slug"`
-		Title             string      `json:"title"`
-		Description       string      `json:"description"`
-		UserID            int         `json:"user_id"`
-		BookID            int         `json:"book_id"`
-		Format            string      `json:"format"`
-		Public            int         `json:"public"`
-		Status            int         `json:"status"`
-		LikesCount        int         `json:"likes_count"`
-		CommentsCount     int         `json:"comments_count"`
-		ContentUpdatedAt  time.Time   `json:"content_updated_at"`
-		CreatedAt         time.Time   `json:"created_at"`
-		UpdatedAt         time.Time   `json:"updated_at"`
-		PublishedAt       time.Time   `json:"published_at"`
-		FirstPublishedAt  time.Time   `json:"first_published_at"`
-		DraftVersion      int         `json:"draft_version"`
-		LastEditorID      int         `json:"last_editor_id"`
-		WordCount         int         `json:"word_count"`
-		Cover             interface{} `json:"cover"`
-		CustomDescription interface{} `json:"custom_description"`
-		LastEditor        struct {
-			ID              int       `json:"id"`
-			Type            string    `json:"type"`
-			Login           string    `json:"login"`
-			Name            string    `json:"name"`
-			Description     string    `json:"description"`
-			AvatarURL       string    `json:"avatar_url"`
-			LargeAvatarURL  string    `json:"large_avatar_url"`
-			MediumAvatarURL string    `json:"medium_avatar_url"`
-			SmallAvatarURL  string    `json:"small_avatar_url"`
-			FollowersCount  int       `json:"followers_count"`
-			FollowingCount  int       `json:"following_count"`
-			CreatedAt       time.Time `json:"created_at"`
-			UpdatedAt       time.Time `json:"updated_at"`
-			Serializer      string    `json:"_serializer"`
-		} `json:"last_editor"`
-		Book       interface{} `json:"book"`
-		Serializer string      `json:"_serializer"`
-	} `json:"data"`
+	Data []DocBookDetail `json:"data"`
 }
 
 // Book JSON structure for a list of repositories in the group
@@ -188,8 +191,8 @@ type Book struct {
 		UpdatedAt        time.Time `json:"updated_at"`
 		CreatedAt        time.Time `json:"created_at"`
 		Namespace        string    `json:"namespace"`
-		User             User  `json:"user"`
-		Serializer string `json:"_serializer"`
+		User             User      `json:"user"`
+		Serializer       string    `json:"_serializer"`
 	} `json:"data"`
 }
 
@@ -272,14 +275,14 @@ type GroupDetail struct {
 }
 
 type GroupUser struct {
-	ID                	int    		`json:"id"`
-	GroupId             int    		`json:"group_id"`
-	UserId              int    		`json:"user_id"`
-	Role         		int    		`json:"role"`
-	CreatedAt         	time.Time 	`json:"created_at"`
-	UpdatedAt         	time.Time 	`json:"updated_at"`
-	User             	User  	`json:"user"`
-	Serializer        	string    	`json:"_serializer"`
+	ID         int       `json:"id"`
+	GroupId    int       `json:"group_id"`
+	UserId     int       `json:"user_id"`
+	Role       int       `json:"role"`
+	CreatedAt  time.Time `json:"created_at"`
+	UpdatedAt  time.Time `json:"updated_at"`
+	User       User      `json:"user"`
+	Serializer string    `json:"_serializer"`
 }
 
 type GroupUserInfo struct {
@@ -292,10 +295,9 @@ type GroupUsers struct {
 
 type RemoveUserResponse struct {
 	Data struct {
-		UserId 	int 	`json:"user_id"`
+		UserId int `json:"user_id"`
 	} `json:"data"`
 }
-
 
 //RepoUser
 type RepoUser struct {
@@ -336,7 +338,7 @@ type UserRepos struct {
 		CreatedAt        time.Time `json:"created_at"`
 		Namespace        string    `json:"namespace"`
 		User             RepoUser  `json:"user"`
-		Serializer string `json:"_serializer"`
+		Serializer       string    `json:"_serializer"`
 	} `json:"data"`
 }
 
@@ -359,15 +361,15 @@ type CreateUserRepo struct {
 		CreatedAt        time.Time `json:"created_at"`
 		Namespace        string    `json:"namespace"`
 		User             RepoUser  `json:"user"`
-		TocYml           string  	`json:"toc_yml"`
-		Serializer string `json:"_serializer"`
+		TocYml           string    `json:"toc_yml"`
+		Serializer       string    `json:"_serializer"`
 	} `json:"data"`
 }
 
 type RepoToc struct {
 	Data []struct {
-		Title 	string 	`json:"title"`
-		Slug 	string 	`json:"slug"`
-		Depth 	int 	`json:"depth"`
+		Title string `json:"title"`
+		Slug  string `json:"slug"`
+		Depth int    `json:"depth"`
 	} `json:"data"`
 }
