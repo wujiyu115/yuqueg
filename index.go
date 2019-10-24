@@ -4,9 +4,9 @@ package yuqueg
 type Service struct {
 	Client *Client
 	User   *UserService
-	Doc    *Doc
-	Repo   *Repo
-	Group  *Group
+	Doc    *DocService
+	Repo   *RepoService
+	Group  *GroupService
 }
 
 // NewService create Client for external use

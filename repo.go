@@ -5,20 +5,20 @@ import (
 	"fmt"
 )
 
-// Repo encapsulate authenticated token
-type Repo struct {
+// RepoService encapsulate authenticated token
+type RepoService struct {
 	client *Client
 }
 
 // NewRepo create User for external use
-func NewRepo(client *Client) *Repo {
-	return &Repo{
+func NewRepo(client *Client) *RepoService {
+	return &RepoService{
 		client: client,
 	}
 }
 
 // List url
-func (r Repo) List(user string, group string, data map[string]string) (UserRepos, error) {
+func (r RepoService) List(user string, group string, data map[string]string) (UserRepos, error) {
 	var (
 		url string
 		u   UserRepos
@@ -41,7 +41,7 @@ func (r Repo) List(user string, group string, data map[string]string) (UserRepos
 }
 
 // Create repo
-func (r Repo) Create(user string, group string, cr *CreateRepo) (CreateUserRepo, error) {
+func (r RepoService) Create(user string, group string, cr *CreateRepo) (CreateUserRepo, error) {
 	var (
 		url string
 		u   CreateUserRepo
@@ -65,7 +65,7 @@ func (r Repo) Create(user string, group string, cr *CreateRepo) (CreateUserRepo,
 }
 
 // Get repo
-func (r Repo) Get(namespace string, t string) (CreateUserRepo, error) {
+func (r RepoService) Get(namespace string, t string) (CreateUserRepo, error) {
 	var u CreateUserRepo
 
 	if len(namespace) == 0 && len(t) == 0 {
@@ -82,7 +82,7 @@ func (r Repo) Get(namespace string, t string) (CreateUserRepo, error) {
 }
 
 //Update repo
-func (r Repo) Update(namespace string, cr *UpdateRepo) (CreateUserRepo, error) {
+func (r RepoService) Update(namespace string, cr *UpdateRepo) (CreateUserRepo, error) {
 	var u CreateUserRepo
 
 	if len(namespace) == 0 {
@@ -100,7 +100,7 @@ func (r Repo) Update(namespace string, cr *UpdateRepo) (CreateUserRepo, error) {
 }
 
 //Delete repo
-func (r Repo) Delete(namespace string) (CreateUserRepo, error) {
+func (r RepoService) Delete(namespace string) (CreateUserRepo, error) {
 	var u CreateUserRepo
 	if len(namespace) == 0 {
 		return u, errors.New("namespace is required")
@@ -116,7 +116,7 @@ func (r Repo) Delete(namespace string) (CreateUserRepo, error) {
 }
 
 //GetToc of repo
-func (r Repo) GetToc(namespace string) (RepoToc, error) {
+func (r RepoService) GetToc(namespace string) (RepoToc, error) {
 	var u RepoToc
 	if len(namespace) == 0 {
 		return u, errors.New("namespace is required")

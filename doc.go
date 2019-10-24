@@ -5,20 +5,20 @@ import (
 	"fmt"
 )
 
-// Doc encapsulate authenticated token
-type Doc struct {
+// DocService encapsulate authenticated token
+type DocService struct {
 	client *Client
 }
 
 // NewDoc create Doc for external use
-func NewDoc(client *Client) *Doc {
-	return &Doc{
+func NewDoc(client *Client) *DocService {
+	return &DocService{
 		client: client,
 	}
 }
 
 // List doc of a repo
-func (doc Doc) List(namespace string) (BookDetail, error) {
+func (doc DocService) List(namespace string) (BookDetail, error) {
 	var b BookDetail
 	if len(namespace) == 0 {
 		return b, errors.New("repo namespace or id is required")
@@ -32,7 +32,7 @@ func (doc Doc) List(namespace string) (BookDetail, error) {
 }
 
 // Get detail info of a doc
-func (doc Doc) Get(namespace string, slug string, data *DocGet) (DocDetail, error) {
+func (doc DocService) Get(namespace string, slug string, data *DocGet) (DocDetail, error) {
 	var b DocDetail
 	if len(namespace) == 0 {
 		return b, errors.New("repo namespace or id is required")
@@ -48,7 +48,7 @@ func (doc Doc) Get(namespace string, slug string, data *DocGet) (DocDetail, erro
 }
 
 // Create doc
-func (doc Doc) Create(namespace string, data *DocCreate) (DocDetail, error) {
+func (doc DocService) Create(namespace string, data *DocCreate) (DocDetail, error) {
 	var b DocDetail
 	if len(namespace) == 0 {
 		return b, errors.New("repo namespace or id is required")
@@ -68,7 +68,7 @@ func (doc Doc) Create(namespace string, data *DocCreate) (DocDetail, error) {
 }
 
 // Update doc
-func (doc Doc) Update(namespace string, id string, data *DocCreate) (DocDetail, error) {
+func (doc DocService) Update(namespace string, id string, data *DocCreate) (DocDetail, error) {
 	var b DocDetail
 
 	if len(namespace) == 0 {
@@ -89,7 +89,7 @@ func (doc Doc) Update(namespace string, id string, data *DocCreate) (DocDetail, 
 }
 
 // Delete doc
-func (doc Doc) Delete(namespace string, id string) (DocDetail, error) {
+func (doc DocService) Delete(namespace string, id string) (DocDetail, error) {
 	var b DocDetail
 	if len(namespace) == 0 {
 		return b, errors.New("repo namespace or id is required")
