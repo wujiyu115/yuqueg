@@ -18,7 +18,7 @@ func NewGroup(client *Client) *Group {
 }
 
 // List groups
-func (g Group) List(login string) (interface{}, error) {
+func (g Group) List(login string) (Groups, error) {
 	var (
 		url    string
 		groups Groups
@@ -30,114 +30,116 @@ func (g Group) List(login string) (interface{}, error) {
 	}
 	_, err := g.client.RequestObj(url, &groups, EmptyRO)
 	if err != nil {
-		return nil, err
+		return groups, err
 	}
 	return groups, nil
 }
 
 // Get group
-func (g Group) Get(login string) (interface{}, error) {
-	if len(login) == 0 {
-		return nil, errors.New("group login or id is required")
-	}
+func (g Group) Get(login string) (GroupDetail, error) {
 	var gd GroupDetail
+	if len(login) == 0 {
+		return gd, errors.New("group login or id is required")
+	}
 	_, err := g.client.RequestObj(fmt.Sprintf("groups/%s", login), &gd, EmptyRO)
 	if err != nil {
-		return nil, err
+		return gd, err
 	}
 	return gd, nil
 }
 
 // Create group
-func (g Group) Create(cg *CreateGroup) (interface{}, error) {
+func (g Group) Create(cg *CreateGroup) (GroupDetail, error) {
+	var gd GroupDetail
 	if len(cg.Name) == 0 {
-		return nil, errors.New("data.name is required")
+		return gd, errors.New("data.name is required")
 	}
 	if len(cg.Login) == 0 {
-		return nil, errors.New("data.login is required")
+		return gd, errors.New("data.login is required")
 	}
-	var gd GroupDetail
 	_, err := g.client.RequestObj("groups", &gd, &RequestOption{
 		Method: "POST",
-		Data:  StructToMapStr(cg),
+		Data:   StructToMapStr(cg),
 	})
 	if err != nil {
-		return nil, err
+		return gd, err
 	}
 	return gd, nil
 }
 
 // Update group
-func (g Group) Update(login string, cg *CreateGroup) (interface{}, error) {
-	if len(login) == 0 {
-		return nil, errors.New("group login or id is required")
-	}
+func (g Group) Update(login string, cg *CreateGroup) (GroupDetail, error) {
 	var groups GroupDetail
+
+	if len(login) == 0 {
+		return groups, errors.New("group login or id is required")
+	}
 	_, err := g.client.RequestObj(fmt.Sprintf("groups/%s", login), &groups, &RequestOption{
 		Method: "PUT",
 		Data:   StructToMapStr(cg),
 	})
 	if err != nil {
-		return nil, err
+		return groups, err
 	}
 	return groups, nil
 }
 
 // Delete group
-func (g Group) Delete(login string) (interface{}, error) {
-	if len(login) == 0 {
-		return nil, errors.New("group login or id is required")
-	}
+func (g Group) Delete(login string) (GroupDetail, error) {
 	var groups GroupDetail
+	if len(login) == 0 {
+		return groups, errors.New("group login or id is required")
+	}
 	_, err := g.client.RequestObj(fmt.Sprintf("groups/%s", login), &groups, &RequestOption{
 		Method: "DELETE",
 	})
 	if err != nil {
-		return nil, err
+		return groups, err
 	}
 	return groups, nil
 }
 
 // ListUsers of group
-func (g Group) ListUsers(login string) (interface{}, error) {
-	if len(login) == 0 {
-		return nil, errors.New("group login or id is required")
-	}
+func (g Group) ListUsers(login string) (GroupUsers, error) {
 	var gd GroupUsers
+	if len(login) == 0 {
+		return gd, errors.New("group login or id is required")
+	}
 	_, err := g.client.RequestObj(fmt.Sprintf("groups/%s/users", login), &gd, EmptyRO)
 	if err != nil {
-		return nil, err
+		return gd, err
 	}
 	return gd, nil
 }
 
 // ListUsers of group
-func (g Group) AddUser(group string, user string, ga *GroupAddUser) (interface{}, error) {
-	if len(group) == 0 || len(user) == 0 {
-		return nil, errors.New("group and user is required")
-	}
+func (g Group) AddUser(group string, user string, ga *GroupAddUser) (GroupUserInfo, error) {
 	var gd GroupUserInfo
+
+	if len(group) == 0 || len(user) == 0 {
+		return gd, errors.New("group and user is required")
+	}
 	_, err := g.client.RequestObj(fmt.Sprintf("groups/%s/users/%s", group, user), &gd, &RequestOption{
 		Method: "PUT",
-		Data: StructToMapStr(ga),
+		Data:   StructToMapStr(ga),
 	})
 	if err != nil {
-		return nil, err
+		return gd, err
 	}
 	return gd, nil
 }
 
 // RemoveUser of group
-func (g Group) RemoveUser(group string, user string) (interface{}, error) {
-	if len(group) == 0 || len(user) == 0 {
-		return nil, errors.New("group and user is required")
-	}
+func (g Group) RemoveUser(group string, user string) (RemoveUserResponse, error) {
 	var gd RemoveUserResponse
+	if len(group) == 0 || len(user) == 0 {
+		return gd, errors.New("group and user is required")
+	}
 	_, err := g.client.RequestObj(fmt.Sprintf("groups/%s/users/%s", group, user), &gd, &RequestOption{
 		Method: "DELETE",
 	})
 	if err != nil {
-		return nil, err
+		return gd, err
 	}
 	return gd, nil
 }

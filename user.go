@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-// User encapsulate authenticated token
+// UserService encapsulate authenticated token
 type UserService struct {
 	client *Client
 }
@@ -16,8 +16,8 @@ func NewUser(client *Client) *UserService {
 	}
 }
 
-// Request url
-func (c UserService) Get(login string) (interface{}, error) {
+// Get user
+func (c UserService) Get(login string) (UserInfo, error) {
 	var (
 		url  string
 		user UserInfo
@@ -29,7 +29,7 @@ func (c UserService) Get(login string) (interface{}, error) {
 	}
 	_, err := c.client.RequestObj(url, &user, EmptyRO)
 	if err != nil {
-		return nil, err
+		return user, err
 	}
 	return user, nil
 }
