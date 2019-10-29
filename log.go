@@ -8,7 +8,10 @@ import (
 )
 
 // L logger
-var L *zap.SugaredLogger
+var (
+	L    *zap.SugaredLogger
+	atom zap.AtomicLevel
+)
 
 func init() {
 	L = NewLogger()
@@ -34,7 +37,7 @@ func NewLogger() *zap.SugaredLogger {
 	}
 
 	// log level
-	atom := zap.NewAtomicLevelAt(zap.InfoLevel)
+	atom = zap.NewAtomicLevelAt(zap.InfoLevel)
 
 	config := zap.Config{
 		Level:            atom,
@@ -50,4 +53,9 @@ func NewLogger() *zap.SugaredLogger {
 		panic(fmt.Sprintf("log init fail: %v", err))
 	}
 	return logger.Sugar()
+}
+
+//SetDebugLevel set debug level
+func SetDebugLevel() {
+	atom.SetLevel(zap.DebugLevel)
 }

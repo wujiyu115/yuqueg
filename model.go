@@ -9,6 +9,7 @@ var (
 	EmptyRO = new(RequestOption)
 )
 
+// User UserSerializer
 type User struct {
 	ID               int       `json:"id"`
 	Type             string    `json:"type"`
@@ -167,8 +168,8 @@ type DocBookDetail struct {
 		UpdatedAt       time.Time `json:"updated_at"`
 		Serializer      string    `json:"_serializer"`
 	} `json:"last_editor"`
-	Book       interface{} `json:"book"`
-	Serializer string      `json:"_serializer"`
+	Book       Book   `json:"book"`
+	Serializer string `json:"_serializer"`
 }
 
 // BookDetail  JSON structure for a list of articles in the library
